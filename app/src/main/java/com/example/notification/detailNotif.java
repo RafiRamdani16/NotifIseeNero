@@ -49,8 +49,6 @@ public class detailNotif extends AppCompatActivity {
         tkecepatanAir = findViewById(R.id.kecepatan_air);
         back = findViewById(R.id.back);
 
-        AntaresAPIASync antaresAPIASync = new AntaresAPIASync();
-        antaresAPIASync.execute();
 
         getData();
         setData();
@@ -88,55 +86,9 @@ public class detailNotif extends AppCompatActivity {
             tnamaSungai.setText(namaSungai);
             twaktu.setText(waktu);
             ttingkatBahaya.setText(tingkatBahaya);
-
-//            tketinggian.setText(ketinggian);
-//            tphAir.setText(phAir);
-//            tkecepatanAir.setText(kecepatanAir);
-        }
-
-        private class AntaresAPIASync extends AsyncTask<Void, Void, Void> {
-            private Response response;
-            private String strBody;
-            private JSONObject content;
-            @Override
-            protected Void doInBackground(Void... voids) {
-                try {
-                    OkHttpClient client = new OkHttpClient();
-
-                    Request request = new Request.Builder()
-                            .url("https://platform.antares.id:8443/~/antares-cse/antares-id/TestArduino/Arduino/la")
-                            .get()
-                            .addHeader("X-M2M-ORIGIN","02e878afacff7fd2:9cd80e42eb8bb12a" )
-                            .addHeader("Accept","application/json")
-                            .addHeader("cache-control","no-cache")
-                            .addHeader("Postman-Token","a84486c4-9c68-46da-98e4-513e6bf76081")
-                            .build();
-
-                    response = client.newCall(request).execute();
-                    strBody = response.body().string();
-                    JSONObject body = new JSONObject(strBody);
-                    content = new JSONObject(body.getJSONObject("m2m:cin").getString("con").replaceAll("NaN","-1"));
-
-                    kecepatanAir = content.getString("Arus");
-                    phAir = content.getString("pH");
-                    ketinggian = content.getString("Jarak");
-
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if(kecepatanAir != null && phAir != null && ketinggian != null){
-                    tketinggian.setText(ketinggian);
-                    tphAir.setText(phAir);
-                    tkecepatanAir.setText(kecepatanAir);
-                }
-            }
-
+            tketinggian.setText(ketinggian);
+            tphAir.setText(phAir);
+            tkecepatanAir.setText(kecepatanAir);
         }
 
 }

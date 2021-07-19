@@ -18,30 +18,50 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.notification.room.NotifViewModel;
 
 import java.util.Date;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
-    private TextView desc;
-    NotificationManager mNotifyManager;
-    public static String PACKAGE_NAME;
-    private NotifViewModel notifViewModel;
-    private static final int NOTIFICATION_ID = 999;
-    private static final String CHANNEL_ID = "1";
-    Button btnNotif;
 
+    private NotifViewModel notifViewModel;
+    private static final String CHANNEL_ID = "1";
+    Button alarmTrigger;
+    int angka1;
+    int angka2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tampilNotifikasi("Sungai Gangga","Waspada");
+        alarmTrigger = findViewById(R.id.trigger);
+        Random random = new Random();
+
+        alarmTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int duration = Toast.LENGTH_SHORT;
+                angka1 = 1 + random.nextInt(3);
+                angka2 = 1 + random.nextInt(3);
+                Toast toast = Toast.makeText(getApplicationContext(), "angka1 =" + angka1 + " angka2 = "+ angka2, duration);
+                toast.show();
+                if(angka1 == 3 && angka2 == 3){
+                    tampilNotifikasi("Sungai Gangga12","Waspada");
+                }else{
+                    Log.d("angka2","" + angka2);
+                }
+            }
+
+        });
+
+
     }
     public void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

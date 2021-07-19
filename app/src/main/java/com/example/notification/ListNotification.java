@@ -43,19 +43,4 @@ public class ListNotification extends Fragment {
         return view;
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-//        if (requestCode == NEW_NOTIF_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            NotificationISeeNero notif = new NotificationISeeNero(data.getStringExtra(data.getStringExtra("namaSungai"))
-//                    ,data.getStringExtra("tingkatBahaya")
-//                    ,data.getStringExtra("waktu")
-//                    ,data.getStringExtra("tandaSeru")
-//
-//                   );
-//            notifViewModel.update(notif);
-//        }
-    }
-
-
 }
